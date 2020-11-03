@@ -1,0 +1,27 @@
+//排列组合直接求解(即n本书，放在k（此题为5）个书架上，求组合数。）
+class Solution {
+    public int countVowelStrings(int n) {
+         return (n+4)*(n+3)*(n+2)*(n+1)/24;
+    }
+}
+
+//动态规划思路
+class Solution {
+    public int countVowelStrings(int n) {
+        if(n==0) return 0;
+        int[][] dp = new int[n+1][5];
+        //初始化n=1的情况--0-4对应着a-u元音的数目
+        for (int i=0; i<5; i++) dp[1][i] = 1;
+        //n为字符串长,循环内将字符串长度递增得出相应元音数目
+        for(int i=2;i<n+1;i++) {
+			 for(int j=0;j<5;j++) {
+                 //取得字符串长为 i,尾字母元音相应个数，按字典序
+				 for(int k=j;k>=0;k--) {
+					 dp[i][j]+=dp[i-1][k];
+				 }
+			 }
+		 }
+         return dp[n][0]+dp[n][1]+dp[n][2]+dp[n][3]+dp[n][4];
+    }
+}
+
