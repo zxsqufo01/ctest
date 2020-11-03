@@ -1,0 +1,13 @@
+class Solution {
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        for(int i = 0; i < pieces.length; i++){
+            int index = 0;
+            for(int j = 0; j < arr.length; j++){
+                if(arr[j] == pieces[i][index]) index++;
+                if(index == pieces[i].length) break;
+            }
+            if(index!=pieces[i].length) return false;
+        }
+        return true;
+    }
+}
