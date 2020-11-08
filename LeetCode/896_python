@@ -1,0 +1,11 @@
+class Solution:
+    def isMonotonic(self, A: List[int]) -> bool:
+        if len(A)==1:
+            return True
+        # 设置一个辅助数组，存储两数之差(即存在，+,-,0三种数)
+        alist = [0]
+        for i in range(len(A)-1):
+            difference = A[i] - A[i+1]
+            alist.append(difference)
+        # 若数组单调，则辅助数组中,0必为最大值或最小值
+        return (max(alist) == 0 or min(alist) == 0)
