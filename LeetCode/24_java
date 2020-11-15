@@ -1,0 +1,30 @@
+class Solution {
+//递归
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = head.next;
+        head.next = swapPairs(newHead.next);
+        newHead.next = head;
+        return newHead;
+    }
+}
+
+class Solution {
+    //非递归方法
+    public ListNode swapPairs(ListNode head) {
+        //定义一个虚拟头结点
+        ListNode dummy_head = new ListNode();
+        dummy_head.next = head;
+        //定义一个交换链的头结点,初始为虚拟头结点，之后为每两个链表节点的前一节点
+        ListNode temp = dummy_head;
+        while(temp.next != null && temp.next.next != null) {
+            ListNode left = temp.next;
+            ListNode right = left.next;
+            temp.next = right;
+            left.next = right.next;
+            right.next = left;
+            temp = left;
+        }
+        return dummy_head.next;
+    }
+}
