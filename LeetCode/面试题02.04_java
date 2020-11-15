@@ -1,0 +1,31 @@
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+
+        if (head == null || head.next == null) return head;
+        
+        //定义带头结点的左右链表用于存储<x>的数
+        ListNode lefthead = new ListNode();
+        ListNode left = lefthead;
+
+        ListNode righthead = new ListNode();
+        ListNode right = righthead;
+
+        //用于遍历head链表(过程中需断开链表)
+        ListNode list_next;
+        while (head != null) {
+            list_next = head.next;            
+            if (head.val < x) {
+                left.next = head;
+                left = left.next;
+            }
+             else {
+                right.next = head;
+                right = right.next;
+            }
+            head.next = null;            
+            head = list_next;
+        }
+        left.next = righthead.next;
+        return lefthead.next;
+    }
+}
