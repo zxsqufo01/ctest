@@ -2,7 +2,7 @@ class Solution:
     def isMonotonic(self, A: List[int]) -> bool:
         if len(A)==1:
             return True
-        # 设置一个辅助数组，存储两数之差(即存在，+,-,0三种数)
+        # 设置一个辅助数组，存储两数之差(即存在+,-,0三种数)
         alist = [0]
         for i in range(len(A)-1):
             difference = A[i] - A[i+1]
