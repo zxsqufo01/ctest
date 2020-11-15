@@ -1,0 +1,15 @@
+//采用递归做法
+class Solution {
+    //定义一个全局变量step记录递归触底后的步数
+    int step = 0;
+    public int kthToLast(ListNode head, int k) {
+        //条件判断
+        if (head == null)
+            return 0;
+        int value = kthToLast(head.next, k);
+        if (++step == k)
+            return head.val;
+        //若未找到则返回0(?但是数字0还是返回0
+        return value;
+    }
+}
