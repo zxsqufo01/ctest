@@ -1,0 +1,51 @@
+public class Solution {
+
+  public int findDuplicate(int[] nums) {
+
+​    int length = nums.length;
+
+​    //获取数组的取值范围
+
+​    int left = 1, right = length - 1;
+
+​    int cnt = 0, ans = 0;
+
+​    //对[left,right]数组进行二分查找
+
+​    while (left <= right) {
+
+​      int mid = left + (right - left) / 2;
+
+​      cnt = 0;
+
+​      for (int num : nums) {
+
+​        if (num <= mid) {
+
+​          cnt++;
+
+​          //记录中间数为mid时,较小数个数
+
+​        }
+
+​      }
+
+​      if (cnt <= mid) left = mid + 1;
+
+​      //若cnt ≤ mid,则重复数字必位于另一范围
+
+​      else {
+
+​        right = mid - 1;
+
+​        ans = mid;
+
+​      }
+
+​    }
+
+​    return ans;
+
+  }
+
+}
