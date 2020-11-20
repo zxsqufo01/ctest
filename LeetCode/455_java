@@ -1,0 +1,14 @@
+//排序数组直接分配
+class Solution {
+    public int findContentChildren(int[] grid, int[] size) {
+        if (grid == null || size == null) return 0;
+        Arrays.sort(grid);
+        Arrays.sort(size);
+        int child = 0, cookie = 0;
+        while (child < grid.length && cookie < size.length) {
+            if (grid[child] <= size[cookie]) child++;
+            cookie++;
+        }
+    return child;
+    }
+}
