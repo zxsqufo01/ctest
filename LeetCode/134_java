@@ -1,0 +1,21 @@
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+        for(int i=0; i<n; i++){
+            int acquire_sum = 0;
+            int cost_sum = 0;
+            int cnt;
+            for(cnt = 0; cnt<n; cnt++){
+                int j = ( i + cnt ) % n;
+                acquire_sum += gas[j];
+                cost_sum += cost[j];
+                if(cost_sum > acquire_sum) break;
+            }
+            if(cnt==n) return i;
+            //else i = i + cnt + 1; 
+            // 通过题解发现，在遍历下一次起点时不需要按部就班，前一次循环所到达的站点均可以通过
+            // 因此可从一个站点最后到达的终点开始遍历，即可减少循环次数，加快时间
+        }
+        return -1;
+    }
+}
