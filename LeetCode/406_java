@@ -1,0 +1,16 @@
+class Solution{
+    public int[][] reconstructQueue(int[][] people) {
+        if (people == null || people.length <= 1) return people;
+        Arrays.sort(people, new Comparator<int []>(){
+            @Override
+            public int compare(int[] person1, int[] person2){
+                return person1[0] == person2[0] ? person2[1]-person1[1] : person1[0] - person2[0];
+            }
+        });
+        List<int[]> list = new ArrayList<int[]>();
+        for(int[] person : people){
+            list.add(person[1], person);
+        }
+        return list.toArray(new int[list.size()][]);
+    }
+}
