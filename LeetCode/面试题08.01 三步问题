@@ -1,0 +1,35 @@
+class Solution {
+    public int waysToStep(int n) {
+        if(n == 1) return 1;
+        if(n == 2) return 2;
+        if(n == 3) return 4;
+        long [] dp = new long[n + 1]; //int类型会溢出
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 4;
+        for(int i=4; i<=n; i++){
+            dp[i] = (dp[i - 1] + dp[i - 2] + dp[i - 3])%1000000007;
+        }
+        return (int)dp[n];
+    }
+}
+
+//节约空间，但是时间增加了……
+class Solution {
+    public int waysToStep(int n){
+        if(n == 1) return 1;
+        if(n == 2) return 2;
+        if(n == 3) return 4;
+        long dp1 = 1;
+        long dp2 = 2;
+        long dp3 = 4;
+        long result = 0;
+        for(int i=4; i<=n; i++){
+            result = ( dp1 + dp2 + dp3 ) % 1000000007;
+            dp1 = dp2 % 1000000007;
+            dp2 = dp3 % 1000000007;
+            dp3 = result % 1000000007;
+        }
+        return (int) result;
+    }
+}
