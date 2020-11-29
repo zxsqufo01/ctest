@@ -1,0 +1,32 @@
+//直接排序
+class Solution {
+    public int[] smallestK(int[] arr, int k) {
+        int[] res = new int[k];
+        Arrays.sort(arr);
+        System.arraycopy(arr, 0, res, 0, k);
+        return res;
+    }
+
+}
+
+//插入排序,非常慢……
+class Solution {
+    public int[] smallestK(int[] arr, int k) {
+        int temp;
+		    int index;
+		    for(int i = 1;i<arr.length;i++) {
+			    temp = arr[i];
+			    index = i - 1;
+			    while(index >= 0 && temp < arr[index]) {
+				    arr[index + 1] = arr[index];
+				    index--;
+			    }
+			    arr[index+1] = temp;
+		    }
+		    int[] result = new int[k];
+		    for(k = k - 1;k>=0;k--) result[k] = arr[k];
+		    return result;
+    }
+}
+
+//快速排序(有时间做一下)
