@@ -1,0 +1,22 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+        //[1],[1,1]均可有主要元素……得判断
+        if(nums==null||nums.length<=0) return -1;
+        Arrays.sort(nums);
+        int middle = nums[nums.length/2];
+        int left = 0;
+        int right = nums.length-1;
+        //通过二分法排序寻得数目最多的数字，进行判断
+        while(left<=right && (nums[left]!=middle || nums[right]!=middle)){
+            if(nums[left]!=middle){
+                left++;
+            }
+            if(nums[right]!=middle){
+                right--;
+            }
+        }
+        return right-left+1 > nums.length / 2 ? middle : -1;
+    }
+}
+
+//与287相近
