@@ -1,0 +1,58 @@
+class Solution {
+public int maxSatisfied(int[] customers, int[] grumpy, int X) {
+    int temp = 0;
+    int sum = 0;
+    for(int i = 0; i < customers.length;i++){
+        if(grumpy[i]==0) sum+=customers[i];
+    }
+    for(int j = 0; j < X;j++){
+        if(grumpy[j]==1) temp += customers[j];
+    }
+    int max = temp;
+    for(int i = 1; i <= (customers.length - X); i++){
+        if(grumpy[i-1]==1){
+            temp-=customers[i-1];
+        }
+        if(grumpy[i+X-1]==1){
+            temp+=customers[i+X-1];
+        }
+        if(temp>max){
+            max = temp;
+        }
+    }
+    return max+sum;
+}
+}
+
+
+
+// class Solution {
+//     public int maxSatisfied(int[] customers, int[] grumpy, int X) {
+//         int sum = 0;
+//         int max = 0;
+//         int flag = 0;
+//         int result = 0;
+
+//         if(customers.length <= X) {
+//             for(int i : customers){
+//                 result += i;
+//             }
+//             return result;
+//         }
+
+//         for(int i=0; i<customers.length; i++){
+//             if(flag !=0 && flag < X) flag++;
+//             if(grumpy[i] == 0) result += customers[i];
+//             else if(flag<X){
+//                 flag++;
+//                 sum += customers[i];
+//             }
+//             if(flag == X){
+//                 if(grumpy[i-X] == 1) sum -= customers[i-X];
+//                 if(grumpy[i] == 1) sum += customers[i];
+//             }
+//             if (sum > max) max = sum;
+//         }
+//         return max + result;
+//     }
+// }
