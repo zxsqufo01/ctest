@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+		List<List<Integer>> ans=new ArrayList<List<Integer>>();
+		char[] map=new char[21];
+		for(int i=0;i<21;i++) map[i]=(char)(97+i);//初始化字符数组（a-u)下标0-20)
+		String Str_num="";//nums的字母字符串形式
+		for(int e:nums) Str_num+=map[e+10];//-10到10用a-u来表示
+		Set<String> set=new HashSet<>();//存结果集的字符串形式
+		backtrack(0, Str_num.toCharArray(), set);//回溯求set集合
+		for(String s:set) {
+			List<Integer> l=new ArrayList<Integer>();
+			for(int i=0;i<s.length();i++) l.add(s.charAt(i)-107);//再将字符串穿变为整型列表
+			ans.add(l);
+		}
+		return ans;
+    }
+	private void backtrack(int index,char[] S,Set<String> res) {//回溯法核心
+		if(index==S.length-1) {//结束判断条件
+			res.add(String.valueOf(S));
+			return;
+		}
+		for(int i=index;i<S.length;i++) {
+				swap(index,i,S);//做出选择：交换
+				backtrack(index+1, S, res);//进行下一步
+				swap(index,i,S);//撤销选择：在交换回去
+		}
+	}
+	private void swap(int i, int j,char[] C) {
+		char temp=C[i];
+		C[i]=C[j];
+		C[j]=temp;
+	}		
+}
