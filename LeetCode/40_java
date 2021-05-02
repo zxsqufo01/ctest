@@ -1,0 +1,37 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res=new ArrayList<>();  //存储结果
+        List<Integer> list=new ArrayList<>();       //存储每一个符合条件的组合
+        Arrays.sort(candidates);                    //排序的目的：为之后过滤重复组合做准备
+        backtrack(candidates,target,0,res,list);
+
+        return res;
+    }
+
+    public void backtrack(int[] candidates,int target,int start,List<List<Integer>> res,List<Integer> list){
+        /*递归出口：当target减至刚好为0时，加入res
+        需要注意的是，我们需要在这里new一个list
+        因为java是按值传递的，res存储的是指向list的地址，而我们在combinationSum2方法中只定义了一个list
+        当递归调用全部执行完毕后，list会重新回溯至决策树根结点，变为空列表
+        所以每次target符合条件时，都要将list中的值重新拷贝一份再放入res*/
+        if(target==0){
+            res.add(new ArrayList<>(list));
+        }
+        if(target<0){
+            return;
+        }
+        /*i从start开始，递归过程每次都是i+1，即索引i的下一个数
+        这样保证了每个数字在每个组合中只使用一次*/
+        for(int i=start;i<candidates.length;i++){
+            /*这个if判断，保证了解集不包含重复组合
+            只要数组中索引i处的值 等于 它前一个索引的值，就直接continue跳过*/
+            if(i>start && candidates[i]==candidates[i-1]){
+                continue;
+            }
+            
+            list.add(candidates[i]);
+            backtrack(candidates,target-candidates[i],i+1,res,list);
+            list.remove(list.size()-1);
+        }
+    }
+}
